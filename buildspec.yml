@@ -6,10 +6,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
-      - >
-        aws ecr get-login-password --region ap-south-1 |
-        docker login --username AWS --password-stdin
-        767828768641.dkr.ecr.ap-south-1.amazonaws.com
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 767828768641.dkr.ecr.ap-south-1.amazonaws.com
       - REPOSITORY_URI=767828768641.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app
       - IMAGE_TAG=$(date +%Y%m%d%H%M%S)
 
@@ -26,7 +23,5 @@ phases:
       - docker push $REPOSITORY_URI:latest
       - echo Deploying to EKS...
       - aws eks --region ap-south-1 update-kubeconfig --name brain-tasks-cluster
-      - >
-        kubectl set image deployment/brain-tasks-deployment
-        brain-tasks-app=$REPOSITORY_URI:$IMAGE_TAG
-      - kubectl rollout status deployment/brain-tasks-deployment
+      - kubectl set image deployment/brain-tasks-app brain-tasks-app=$REPOSITORY_URI:$IMAGE_TAG
+
