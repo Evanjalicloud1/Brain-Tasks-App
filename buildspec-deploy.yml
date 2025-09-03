@@ -1,3 +1,4 @@
+---
 version: 0.2
 
 phases:
@@ -7,4 +8,3 @@ phases:
       - aws eks --region ap-south-1 update-kubeconfig --name brain-tasks-cluster
       - kubectl apply -f deployment.yml
       - kubectl apply -f service.yml
-
